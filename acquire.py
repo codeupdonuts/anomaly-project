@@ -29,6 +29,6 @@ def curriculum_dataframe():
     df = acquire_curriculum_data()
     endpoint = df['page'].unique()
     curriculum_df = pd.DataFrame(endpoint)
-    curriculum_df.rename(columns={0: 'pages'})
+    curriculum_df.rename(columns={0: 'pages'}, inplace = True)
 
     return curriculum_df 
