@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import env
 import datetime
+from os.path import isfile
 
 
 ###############################################################
@@ -60,15 +61,13 @@ def acquire_cohort_logs(user:str=env.user, password:str=env.password, host:str=e
   ##########------------Clean the above df using date time and mapping-------#####
   
 def clean_cohort_logs(df:pd.DataFrame)->pd.DataFrame:
-    #Get csv from file
-    df = pd.read_csv('cohort_logs.csv', index_col=[0])
     #Changing date, start and end dates to datetime fields
-    df["date"]= pd.to_datetime(df["date"])
+    #df["date"]= pd.to_datetime(df["date"])
     df["start_date"]= pd.to_datetime(df["start_date"])
     df["end_date"]= pd.to_datetime(df["end_date"])
     #Setting index as date time
     #Set datetime index
-    df = df.set_index(df.date)
+    # df = df.set_index(df.date)
     #Creating new column for program length
     df['program_length'] = df.end_date - df.start_date
     #Create column with program name
@@ -77,6 +76,23 @@ def clean_cohort_logs(df:pd.DataFrame)->pd.DataFrame:
     #Copying these values to a new column program name
     df['program_name'] = df['program_id']
     #Mapping the real names of the program
-    df["program_name"] = df["program_name"].map({'1.0':'full stack PHP','2.0':'full stack Java','3.0':'data science','4.0':'front end'})
-
+    df["program_name"] = df["program_name"].map({'1':'full stack PHP','2':'full stack Java','3':'data science','4':'front end'})
+    
     return df
+
+def acquire_cohorts()->pd.DataFrame:
+    if isfile('cohorts.csv'):
+        return pd.read_csv('cohorts.csv',index_col=[0])
+    query = '''SELECT id AS cohort, name AS cohort_name , start_date, end_date, program_id FROM cohorts'''
+    url = f'mysql+pymysql://{env.user}:{env.password}@{env.host}/curriculum_logs'
+    df = pd.read_sql(query,url)
+    df.index = df.cohort
+    return df
+def wrangle_curriculum_access()->pd.DataFrame:
+    curriculum_df = acquire_curriculum_data()
+    cohort_df = acquire_cohorts()
+    cohort_df = clean_cohort_logs(cohort_df)
+    curriculum_df = curriculum_df.join(cohort_df,on='cohort',how='left',lsuffix='_id')
+    curriculum_df = curriculum_df.drop(columns=['cohort_id','cohort','program_id'])
+    curriculum_df.program_name = curriculum_df.program_name.astype('category')
+    return curriculum_df
