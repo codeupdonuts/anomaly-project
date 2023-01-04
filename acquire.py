@@ -12,6 +12,10 @@ def acquire_curriculum_data():
     #Get the data from text file on local repo
     df = pd.read_table("anonymized-curriculum-access.txt", sep = '\s', header = None, 
                    names = ['date', 'time', 'page', 'id', 'cohort', 'ip'])
+    df.date = pd.to_datetime(df.date + ' ' + df.time)
+    df = df.drop(columns=['time'])
+    df = df.set_index(df['date'])
+    df = df.drop(columns=['date'])               
     return df
 
 
