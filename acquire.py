@@ -95,4 +95,5 @@ def wrangle_curriculum_access()->pd.DataFrame:
     curriculum_df = curriculum_df.join(cohort_df,on='cohort',how='left',lsuffix='_id')
     curriculum_df = curriculum_df.drop(columns=['cohort_id','cohort','program_id'])
     curriculum_df.program_name = curriculum_df.program_name.astype('category')
+    curriculum_df = curriculum_df.dropna(subset=['page'])
     return curriculum_df
