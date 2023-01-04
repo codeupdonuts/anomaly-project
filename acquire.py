@@ -76,7 +76,7 @@ def clean_cohort_logs(df:pd.DataFrame)->pd.DataFrame:
     #Copying these values to a new column program name
     df['program_name'] = df['program_id']
     #Mapping the real names of the program
-    df["program_name"] = df["program_name"].map({'1':'full stack PHP','2':'full stack Java','3':'data science','4':'front end'})
+    df["program_name"] = df["program_name"].map({'1':'PHP','2':'Java','3':'data_science','4':'front_end'})
     
     return df
 
