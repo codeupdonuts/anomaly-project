@@ -59,7 +59,7 @@ def acquire_cohort_logs(user=env.user, password=env.password, host=env.host):
   
   ##########------------Clean the above df using date time and mapping-------#####
   
-  def clean_cohort_logs(df):
+def clean_cohort_logs(df):
     #Get csv from file
     df = pd.read_csv('cohort_logs.csv', index_col=[0])
     #Changing date, start and end dates to datetime fields
