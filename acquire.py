@@ -42,7 +42,7 @@ def curriculum_dataframe():
 
 ###########-----------_Acquire from SQL with additional features---------####
 
-def acquire_cohort_logs(user=env.user, password=env.password, host=env.host):
+def acquire_cohort_logs(user:str=env.user, password:str=env.password, host:str=env.host)->pd.DataFrame:
     '''
     This function queries the Codeup MySQL curriculum_logs database and returns a dataframe
     '''
@@ -59,7 +59,7 @@ def acquire_cohort_logs(user=env.user, password=env.password, host=env.host):
   
   ##########------------Clean the above df using date time and mapping-------#####
   
-def clean_cohort_logs(df):
+  def clean_cohort_logs(df:pd.DataFrame)->pd.DataFrame:
     #Get csv from file
     df = pd.read_csv('cohort_logs.csv', index_col=[0])
     #Changing date, start and end dates to datetime fields

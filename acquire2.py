@@ -26,7 +26,7 @@ def chron_df():
     cleans it, and then returns it for use
     '''
 
-    df = acquire_curriculum_data
+    df = acquire_curriculum_data()
     df = cleaning(df)
     df.date = pd.to_datetime(df.date + ' ' + df.time)
     df = df.drop(columns=['time'])
