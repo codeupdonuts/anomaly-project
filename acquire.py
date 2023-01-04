@@ -59,7 +59,7 @@ def acquire_cohort_logs(user:str=env.user, password:str=env.password, host:str=e
   
   ##########------------Clean the above df using date time and mapping-------#####
   
-  def clean_cohort_logs(df:pd.DataFrame)->pd.DataFrame:
+def clean_cohort_logs(df:pd.DataFrame)->pd.DataFrame:
     #Get csv from file
     df = pd.read_csv('cohort_logs.csv', index_col=[0])
     #Changing date, start and end dates to datetime fields
@@ -78,5 +78,5 @@ def acquire_cohort_logs(user:str=env.user, password:str=env.password, host:str=e
     df['program_name'] = df['program_id']
     #Mapping the real names of the program
     df["program_name"] = df["program_name"].map({'1.0':'full stack PHP','2.0':'full stack Java','3.0':'data science','4.0':'front end'})
-    
+
     return df
