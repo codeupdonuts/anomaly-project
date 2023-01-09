@@ -1,12 +1,12 @@
 # How are CodeUp students using the curriculum?
-## Anomaly detection group project
+# Anomaly detection group project
 - by Woody Sims, John "Chris" Rosenberger, Cristina Lucin
 
 
 
 
-### Project Description
-### Provided a sample prompt, produce a slide and a more detailed email response to your employer
+
+## Provided a sample prompt, produce a slide and a more detailed email response to your employer
 
 ***You are a junior data scientist on CodeUp data science team and recieve the following email in your inbox:***
 
@@ -28,7 +28,7 @@
 
     Thank you,
 
-## Data Dictionary
+# Data Dictionary
 
 | Feature | Definition | Manipulations applied|Data Type|
 |--------|-----------|-----------|-----------|
@@ -49,9 +49,16 @@
 |*program_length*|  duration of student's time with codeUp | year, month, day format| datetime64
 ||
 
+# The process:
+* plan portions of project for members to work on
+* acquire data and systematize dataframe so members are working with similar dataframes
+* explore and analyze logs of nearly 1 million webpages provisioned by codeUp currilum server
+* answer questions separately
+* combine answers into email document and slide 
+* build project notebook with code from which answers were derived
 
 
-## Steps to Reproduce
+# Steps to Reproduce
 **note: A .txt file accompanied the email which will not be provided in this repo for security purposes.**
 **If you do not have a copy of that .txt file, you will not be able to reproduce this project**
 1) Clone this repo into your computer.
